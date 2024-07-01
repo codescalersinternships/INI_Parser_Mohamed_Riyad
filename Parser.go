@@ -123,5 +123,4 @@ func (p *Parser) loadFromFile(filePath string) {
 	p.parseLines(lines)
 }
 func main() {
-
 }
