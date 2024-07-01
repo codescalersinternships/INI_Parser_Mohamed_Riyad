@@ -24,7 +24,8 @@ jobs:
 
       - name: Golangci Linter
         uses: golangci/golangci-lint-action@v6
-
+        with:
+            golangci_lint_args: --skip-dirs=go/pkg
 
       - name: Go test
         run: go test ./...
