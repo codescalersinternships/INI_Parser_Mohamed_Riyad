@@ -11,13 +11,13 @@ import (
 // Parser represents a configuration parser with sections and key-value pairs
 type Parser struct {
 	SectionsNames []string
-	Mymap         map[string]map[string]string
+	MyMap         map[string]map[string]string
 }
 
 // NewParser creates a new Parser instance
 func NewParser() *Parser {
 	return &Parser{
-		Mymap: make(map[string]map[string]string),
+		MyMap: make(map[string]map[string]string),
 	}
 }
 
@@ -34,20 +34,20 @@ func (p *Parser) getSectionsNames() []string {
 
 // getSectionsMap returns the map of sections
 func (p *Parser) getSectionsMap() map[string]map[string]string {
-	return p.Mymap
+	return p.MyMap
 }
 
 // getValue returns the value for a given section and key
 func (p *Parser) getValue(sectionName, key string) string {
-	return p.Mymap[sectionName][key]
+	return p.MyMap[sectionName][key]
 }
 
 // setValue sets the value for a given section and key
 func (p *Parser) setValue(sectionName, key, value string) {
-	if _, exists := p.Mymap[sectionName]; !exists {
-		p.Mymap[sectionName] = make(map[string]string)
+	if _, exists := p.MyMap[sectionName]; !exists {
+		p.MyMap[sectionName] = make(map[string]string)
 	}
-	p.Mymap[sectionName][key] = value
+	p.MyMap[sectionName][key] = value
 }
 
 // parseLines parses lines to fill sections and key-value pairs
@@ -60,10 +60,10 @@ func (p *Parser) parseLines(lines []string) {
 		if line[0] == '[' {
 			sectionName = line[1 : len(line)-1]
 			p.SectionsNames = append(p.SectionsNames, sectionName)
-			p.Mymap[sectionName] = make(map[string]string)
+			p.MyMap[sectionName] = make(map[string]string)
 		} else {
 			key, value := p.findKeyAndValue(line)
-			p.Mymap[sectionName][key] = value
+			p.MyMap[sectionName][key] = value
 		}
 	}
 }
@@ -73,7 +73,7 @@ func (p *Parser) toString() []string {
 	var lines []string
 	for _, sectionName := range p.SectionsNames {
 		lines = append(lines, "["+sectionName+"]")
-		for key, value := range p.Mymap[sectionName] {
+		for key, value := range p.MyMap[sectionName] {
 			lines = append(lines, key+" = "+value)
 		}
 	}
