@@ -22,10 +22,9 @@ jobs:
       - name: Go fmt
         run: go fmt ./...
 
-      - name: Go lint
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.50.1
-          golangci-lint run
+      - name: Golangci Linter
+        uses: golangci/golangci-lint-action@v6
+
 
       - name: Go test
         run: go test ./...
